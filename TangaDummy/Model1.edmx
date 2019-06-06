@@ -1,0 +1,877 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IDNumber" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Buildings">
+          <Key>
+            <PropertyRef Name="BuildingID" />
+          </Key>
+          <Property Name="BuildingID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LandRefNo" Type="bigint" />
+          <Property Name="BuildingType" Type="varchar" MaxLength="50" />
+          <Property Name="BuildingName" Type="varchar" MaxLength="150" />
+          <Property Name="BuildingAddress" Type="varchar" MaxLength="150" />
+          <Property Name="BuildingOwner" Type="bigint" Nullable="false" />
+          <Property Name="BuildingFloors" Type="int" />
+          <Property Name="PaymentStatus" Type="bit" />
+          <Property Name="Arrears" Type="money" />
+        </EntityType>
+        <EntityType Name="ConfirmedPayments">
+          <Key>
+            <PropertyRef Name="ConfirmedPaymentsID" />
+          </Key>
+          <Property Name="ConfirmedPaymentsID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MerchantRequestID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CheckoutRequestID" Type="varchar(max)" Nullable="false" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="ReceiptNumber" Type="varchar" MaxLength="50" />
+          <Property Name="TransactionDate" Type="datetime" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentMade" Type="money" />
+          <Property Name="PersonID" Type="bigint" Nullable="false" />
+          <Property Name="PermitType" Type="bigint" />
+          <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+          <Property Name="PaymentReference" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PaymentTrailMessages">
+          <Key>
+            <PropertyRef Name="OnlinePaymentTrailID" />
+          </Key>
+          <Property Name="OnlinePaymentTrailID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MerchantRequestID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CheckoutRequestID" Type="varchar(max)" Nullable="false" />
+          <Property Name="ResponseCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerMessage" Type="varchar(max)" />
+          <Property Name="ResponseDescription" Type="varchar(max)" />
+          <Property Name="IDNumber" Type="nvarchar(max)" />
+          <Property Name="PaymentStamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PermitTypes">
+          <Key>
+            <PropertyRef Name="PermitTypeID" />
+          </Key>
+          <Property Name="PermitTypeID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Permit_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Permit_Description" Type="nvarchar(max)" />
+          <Property Name="PermitPath" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PersonTable">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Person_Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Date_of_Birth" Type="datetime" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDNumber" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PersonWallets">
+          <Key>
+            <PropertyRef Name="WalletID" />
+          </Key>
+          <Property Name="WalletID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="bigint" />
+          <Property Name="CurrentAmount" Type="money" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastUpdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WaterMeters">
+          <Key>
+            <PropertyRef Name="MeterID" />
+          </Key>
+          <Property Name="MeterID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MeterNo" Type="varchar" MaxLength="50" />
+          <Property Name="Meter_Status" Type="varchar" MaxLength="50" />
+          <Property Name="BillName" Type="varchar" MaxLength="150" />
+          <Property Name="Brand" Type="varchar" MaxLength="150" />
+          <Property Name="MeterOwner" Type="bigint" Nullable="false" />
+          <Property Name="Ward" Type="varchar" MaxLength="150" />
+          <Property Name="Street" Type="varchar" MaxLength="150" />
+          <Property Name="Arrears" Type="money" />
+          <Property Name="Meter_Account_No" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Buildings_PersonTable">
+          <End Role="PersonTable" Type="Self.PersonTable" Multiplicity="1" />
+          <End Role="Buildings" Type="Self.Buildings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTable">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Buildings">
+              <PropertyRef Name="BuildingOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_PermitTypes">
+          <End Role="PermitTypes" Type="Self.PermitTypes" Multiplicity="0..1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermitTypes">
+              <PropertyRef Name="PermitTypeID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="PermitType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_PersonTable">
+          <End Role="PersonTable" Type="Self.PersonTable" Multiplicity="1" />
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTable">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PaymentTrailMessages_PaymentTrailMessages">
+          <End Role="PaymentTrailMessages" Type="Self.PaymentTrailMessages" Multiplicity="1" />
+          <End Role="PaymentTrailMessages1" Type="Self.PaymentTrailMessages" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentTrailMessages">
+              <PropertyRef Name="OnlinePaymentTrailID" />
+            </Principal>
+            <Dependent Role="PaymentTrailMessages1">
+              <PropertyRef Name="OnlinePaymentTrailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonWallets_PersonWallets">
+          <End Role="PersonTable" Type="Self.PersonTable" Multiplicity="0..1" />
+          <End Role="PersonWallets" Type="Self.PersonWallets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTable">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonWallets">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaterMeters_PersonTable">
+          <End Role="PersonTable" Type="Self.PersonTable" Multiplicity="1" />
+          <End Role="WaterMeters" Type="Self.WaterMeters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTable">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="WaterMeters">
+              <PropertyRef Name="MeterOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Buildings" EntityType="Self.Buildings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConfirmedPayments" EntityType="Self.ConfirmedPayments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentTrailMessages" EntityType="Self.PaymentTrailMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PermitTypes" EntityType="Self.PermitTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonTable" EntityType="Self.PersonTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonWallets" EntityType="Self.PersonWallets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WaterMeters" EntityType="Self.WaterMeters" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Buildings_PersonTable" Association="Self.FK_Buildings_PersonTable">
+            <End Role="PersonTable" EntitySet="PersonTable" />
+            <End Role="Buildings" EntitySet="Buildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_PermitTypes" Association="Self.FK_Payments_PermitTypes">
+            <End Role="PermitTypes" EntitySet="PermitTypes" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_PersonTable" Association="Self.FK_Payments_PersonTable">
+            <End Role="PersonTable" EntitySet="PersonTable" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentTrailMessages_PaymentTrailMessages" Association="Self.FK_PaymentTrailMessages_PaymentTrailMessages">
+            <End Role="PaymentTrailMessages" EntitySet="PaymentTrailMessages" />
+            <End Role="PaymentTrailMessages1" EntitySet="PaymentTrailMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonWallets_PersonWallets" Association="Self.FK_PersonWallets_PersonWallets">
+            <End Role="PersonTable" EntitySet="PersonTable" />
+            <End Role="PersonWallets" EntitySet="PersonWallets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaterMeters_PersonTable" Association="Self.FK_WaterMeters_PersonTable">
+            <End Role="PersonTable" EntitySet="PersonTable" />
+            <End Role="WaterMeters" EntitySet="WaterMeters" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="BuildingID" />
+          </Key>
+          <Property Name="BuildingID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LandRefNo" Type="Int64" />
+          <Property Name="BuildingType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BuildingName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="BuildingAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="BuildingOwner" Type="Int64" Nullable="false" />
+          <Property Name="BuildingFloors" Type="Int32" />
+          <Property Name="PaymentStatus" Type="Boolean" />
+          <Property Name="Arrears" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="PersonTable" Relationship="Self.FK_Buildings_PersonTable" FromRole="Buildings" ToRole="PersonTable" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentMade" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PersonID" Type="Int64" Nullable="false" />
+          <Property Name="PermitType" Type="Int64" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PermitType1" Relationship="Model.FK_Payments_PermitTypes" FromRole="Payment" ToRole="PermitType" />
+          <NavigationProperty Name="PersonTable" Relationship="Model.FK_Payments_PersonTable" FromRole="Payment" ToRole="PersonTable" />
+          <Property Name="PaymentReference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PermitType">
+          <Key>
+            <PropertyRef Name="PermitTypeID" />
+          </Key>
+          <Property Name="PermitTypeID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Permit_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Permit_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PermitPath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payments" Relationship="Model.FK_Payments_PermitTypes" FromRole="PermitType" ToRole="Payment" />
+        </EntityType>
+        <EntityType Name="PersonTable">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Person_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Date_of_Birth" Type="DateTime" Precision="3" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Buildings" Relationship="Self.FK_Buildings_PersonTable" FromRole="PersonTable" ToRole="Buildings" />
+          <NavigationProperty Name="PersonWallets" Relationship="Self.FK_PersonWallets_PersonWallets" FromRole="PersonTable" ToRole="PersonWallets" />
+          <NavigationProperty Name="Payments" Relationship="Model.FK_Payments_PersonTable" FromRole="PersonTable" ToRole="Payment" />
+          <Property Name="IDNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WaterMeters" Relationship="Model.FK_WaterMeters_PersonTable" FromRole="PersonTable" ToRole="WaterMeter" />
+        </EntityType>
+        <EntityType Name="PersonWallet">
+          <Key>
+            <PropertyRef Name="WalletID" />
+          </Key>
+          <Property Name="WalletID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int64" />
+          <Property Name="CurrentAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PersonTable" Relationship="Self.FK_PersonWallets_PersonWallets" FromRole="PersonWallets" ToRole="PersonTable" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Buildings_PersonTable">
+          <End Role="PersonTable" Type="Self.PersonTable" Multiplicity="1" />
+          <End Role="Buildings" Type="Self.Building" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTable">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Buildings">
+              <PropertyRef Name="BuildingOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonWallets_PersonWallets">
+          <End Role="PersonTable" Type="Self.PersonTable" Multiplicity="0..1" />
+          <End Role="PersonWallets" Type="Self.PersonWallet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTable">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonWallets">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Tanga_City_CouncilEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="Buildings" EntityType="Self.Building" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+          <EntitySet Name="PermitTypes" EntityType="Self.PermitType" />
+          <EntitySet Name="PersonTables" EntityType="Self.PersonTable" />
+          <EntitySet Name="PersonWallets" EntityType="Self.PersonWallet" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Buildings_PersonTable" Association="Self.FK_Buildings_PersonTable">
+            <End Role="PersonTable" EntitySet="PersonTables" />
+            <End Role="Buildings" EntitySet="Buildings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonWallets_PersonWallets" Association="Self.FK_PersonWallets_PersonWallets">
+            <End Role="PersonTable" EntitySet="PersonTables" />
+            <End Role="PersonWallets" EntitySet="PersonWallets" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_PermitTypes" Association="Model.FK_Payments_PermitTypes">
+            <End Role="PermitType" EntitySet="PermitTypes" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_PersonTable" Association="Model.FK_Payments_PersonTable">
+            <End Role="PersonTable" EntitySet="PersonTables" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <EntitySet Name="ConfirmedPayments" EntityType="Model.ConfirmedPayment" />
+          <EntitySet Name="PaymentTrailMessages" EntityType="Model.PaymentTrailMessage" />
+          <AssociationSet Name="FK_PaymentTrailMessages_PaymentTrailMessages" Association="Model.FK_PaymentTrailMessages_PaymentTrailMessages">
+            <End Role="PaymentTrailMessage" EntitySet="PaymentTrailMessages" />
+            <End Role="PaymentTrailMessage1" EntitySet="PaymentTrailMessages" />
+          </AssociationSet>
+          <EntitySet Name="WaterMeters" EntityType="Model.WaterMeter" />
+          <AssociationSet Name="FK_WaterMeters_PersonTable" Association="Model.FK_WaterMeters_PersonTable">
+            <End Role="PersonTable" EntitySet="PersonTables" />
+            <End Role="WaterMeter" EntitySet="WaterMeters" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Payments_PermitTypes">
+          <End Type="Model.PermitType" Role="PermitType" Multiplicity="0..1" />
+          <End Type="Model.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PermitType">
+              <PropertyRef Name="PermitTypeID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PermitType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_PersonTable">
+          <End Type="Model.PersonTable" Role="PersonTable" Multiplicity="1" />
+          <End Type="Model.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTable">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ConfirmedPayment">
+          <Key>
+            <PropertyRef Name="ConfirmedPaymentsID" />
+          </Key>
+          <Property Name="ConfirmedPaymentsID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MerchantRequestID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckoutRequestID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="ReceiptNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PaymentTrailMessage">
+          <Key>
+            <PropertyRef Name="OnlinePaymentTrailID" />
+          </Key>
+          <Property Name="OnlinePaymentTrailID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MerchantRequestID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckoutRequestID" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ResponseCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ResponseDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IDNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PaymentTrailMessages1" Relationship="Model.FK_PaymentTrailMessages_PaymentTrailMessages" FromRole="PaymentTrailMessage" ToRole="PaymentTrailMessage1" />
+          <NavigationProperty Name="PaymentTrailMessage1" Relationship="Model.FK_PaymentTrailMessages_PaymentTrailMessages" FromRole="PaymentTrailMessage1" ToRole="PaymentTrailMessage" />
+          <Property Name="PaymentStamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_PaymentTrailMessages_PaymentTrailMessages">
+          <End Type="Model.PaymentTrailMessage" Role="PaymentTrailMessage" Multiplicity="1" />
+          <End Type="Model.PaymentTrailMessage" Role="PaymentTrailMessage1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentTrailMessage">
+              <PropertyRef Name="OnlinePaymentTrailID" />
+            </Principal>
+            <Dependent Role="PaymentTrailMessage1">
+              <PropertyRef Name="OnlinePaymentTrailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="WaterMeter">
+          <Key>
+            <PropertyRef Name="MeterID" />
+          </Key>
+          <Property Name="MeterID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MeterNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Meter_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Brand" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="MeterOwner" Type="Int64" Nullable="false" />
+          <Property Name="Ward" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Street" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Arrears" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Meter_Account_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PersonTable" Relationship="Model.FK_WaterMeters_PersonTable" FromRole="WaterMeter" ToRole="PersonTable" />
+        </EntityType>
+        <Association Name="FK_WaterMeters_PersonTable">
+          <End Type="Model.PersonTable" Role="PersonTable" Multiplicity="1" />
+          <End Type="Model.WaterMeter" Role="WaterMeter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonTable">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="WaterMeter">
+              <PropertyRef Name="MeterOwner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Tanga_City_CouncilEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="Model.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="Model.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="Model.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="Model.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Model.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buildings">
+            <EntityTypeMapping TypeName="Model.Building">
+              <MappingFragment StoreEntitySet="Buildings">
+                <ScalarProperty Name="BuildingID" ColumnName="BuildingID" />
+                <ScalarProperty Name="LandRefNo" ColumnName="LandRefNo" />
+                <ScalarProperty Name="BuildingType" ColumnName="BuildingType" />
+                <ScalarProperty Name="BuildingName" ColumnName="BuildingName" />
+                <ScalarProperty Name="BuildingAddress" ColumnName="BuildingAddress" />
+                <ScalarProperty Name="BuildingOwner" ColumnName="BuildingOwner" />
+                <ScalarProperty Name="BuildingFloors" ColumnName="BuildingFloors" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="Arrears" ColumnName="Arrears" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="Model.Payment">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="PaymentReference" ColumnName="PaymentReference" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="PaymentMade" ColumnName="PaymentMade" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="PermitType" ColumnName="PermitType" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermitTypes">
+            <EntityTypeMapping TypeName="Model.PermitType">
+              <MappingFragment StoreEntitySet="PermitTypes">
+                <ScalarProperty Name="PermitTypeID" ColumnName="PermitTypeID" />
+                <ScalarProperty Name="Permit_Name" ColumnName="Permit_Name" />
+                <ScalarProperty Name="Permit_Description" ColumnName="Permit_Description" />
+                <ScalarProperty Name="PermitPath" ColumnName="PermitPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonTables">
+            <EntityTypeMapping TypeName="Model.PersonTable">
+              <MappingFragment StoreEntitySet="PersonTable">
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Person_Name" ColumnName="Person_Name" />
+                <ScalarProperty Name="Date_of_Birth" ColumnName="Date_of_Birth" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonWallets">
+            <EntityTypeMapping TypeName="Model.PersonWallet">
+              <MappingFragment StoreEntitySet="PersonWallets">
+                <ScalarProperty Name="WalletID" ColumnName="WalletID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="CurrentAmount" ColumnName="CurrentAmount" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="ConfirmedPayments">
+            <EntityTypeMapping TypeName="Model.ConfirmedPayment">
+              <MappingFragment StoreEntitySet="ConfirmedPayments">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="ReceiptNumber" ColumnName="ReceiptNumber" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CheckoutRequestID" ColumnName="CheckoutRequestID" />
+                <ScalarProperty Name="MerchantRequestID" ColumnName="MerchantRequestID" />
+                <ScalarProperty Name="ConfirmedPaymentsID" ColumnName="ConfirmedPaymentsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentTrailMessages">
+            <EntityTypeMapping TypeName="Model.PaymentTrailMessage">
+              <MappingFragment StoreEntitySet="PaymentTrailMessages">
+                <ScalarProperty Name="PaymentStamp" ColumnName="PaymentStamp" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="ResponseDescription" ColumnName="ResponseDescription" />
+                <ScalarProperty Name="CustomerMessage" ColumnName="CustomerMessage" />
+                <ScalarProperty Name="ResponseCode" ColumnName="ResponseCode" />
+                <ScalarProperty Name="CheckoutRequestID" ColumnName="CheckoutRequestID" />
+                <ScalarProperty Name="MerchantRequestID" ColumnName="MerchantRequestID" />
+                <ScalarProperty Name="OnlinePaymentTrailID" ColumnName="OnlinePaymentTrailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaterMeters">
+            <EntityTypeMapping TypeName="Model.WaterMeter">
+              <MappingFragment StoreEntitySet="WaterMeters">
+                <ScalarProperty Name="Meter_Account_No" ColumnName="Meter_Account_No" />
+                <ScalarProperty Name="Arrears" ColumnName="Arrears" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="MeterOwner" ColumnName="MeterOwner" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="BillName" ColumnName="BillName" />
+                <ScalarProperty Name="Meter_Status" ColumnName="Meter_Status" />
+                <ScalarProperty Name="MeterNo" ColumnName="MeterNo" />
+                <ScalarProperty Name="MeterID" ColumnName="MeterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

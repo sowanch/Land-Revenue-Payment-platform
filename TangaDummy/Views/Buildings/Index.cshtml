@@ -1,0 +1,74 @@
+﻿@model IEnumerable<TangaDummy.Building>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LandRefNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuildingType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuildingName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuildingAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuildingFloors)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arrears)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PersonTable.Person_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LandRefNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuildingType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuildingName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuildingAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuildingFloors)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Arrears)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonTable.Person_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Make Payment", "Edit", new { id=item.BuildingID }) |
+            @Html.ActionLink("View Details", "Details", new { id=item.BuildingID })
+        </td>
+    </tr>
+}
+
+</table>

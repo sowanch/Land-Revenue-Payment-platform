@@ -1,0 +1,264 @@
+﻿@model TangaDummy.WaterMeter
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+<script src="https://js.arcgis.com/4.8/"></script>
+<script>
+    require([
+      "esri/Map",
+      "esri/views/SceneView",
+      "esri/views/MapView",
+      "esri/layers/GraphicsLayer",
+      "esri/layers/FeatureLayer",
+      "esri/tasks/QueryTask",
+      "esri/tasks/support/Query",
+
+      "esri/Graphic",
+      "esri/geometry/Point",
+      "esri/geometry/support/webMercatorUtils",
+      "esri/geometry/projection",
+
+      "esri/symbols/SimpleMarkerSymbol",
+	  "esri/symbols/SimpleFillSymbol",
+      "esri/widgets/Search",
+      "dojo/_base/array",
+      "dojo/domReady!"
+    ], function (Map, SceneView, MapView, GraphicsLayer, FeatureLayer, QueryTask, Query, Graphic, Point, webMercatorUtils, projection, SimpleMarkerSymbol, SimpleFillSymbol, Search, arrayUtils){
+
+        var markerSymbol;
+
+        var map = new Map({
+          basemap: "osm",
+          ground: "world-elevation"
+      });
+      var view = new MapView({
+        container: "myMap",  // Reference to the scene div created in step 5
+        map: map,  // Reference to the map object created before the scene
+        zoom: 4,  // Sets the zoom level based on level of detail (LOD)
+        center: [15, 65]  // Sets the center point of view in lon/lat
+        });
+
+      var myBody = {
+          'username': 'lndungo',
+          'password': 'wambuila',
+          'referer': 'https://www.arcgis.com',
+          'f': 'json'
+      };
+
+      var Url = 'https://arcgis.com/sharing/rest/generateToken';
+
+      
+
+      $.post(Url, myBody, function (data, status) {
+          console.log(data);
+          var obj = JSON.parse(data);
+          console.log(obj.token);
+      
+
+      
+
+	  // Create the FeatureLayer using the popupTemplate
+          var featureLayer = "https://services.arcgis.com/CmINIEzurW7Tagtl/ArcGIS/rest/services/Tanga_Sample4Integration_WFL1/FeatureServer/0";
+
+      // Create graphics layer and symbol to use for displaying the results of query
+      var resultsLayer = new GraphicsLayer();
+
+
+		/*****************************************************************
+       *  Point QueryTask to URL of feature service
+       *****************************************************************/
+		var qTask = new QueryTask({
+            url: featureLayer + "?token=" + obj.token
+		});
+
+		/******************************************************************
+		* Set the query parameters to always return geometry and all fields.
+		* Returning geometry allows us to display results on the map/view
+		******************************************************************/
+
+        var outSpatialReference = {
+            wkid: 102100
+        };
+
+		var params = new Query({
+			returnGeometry: true,
+            outFields: ["*"],
+            outSpatialReference: outSpatialReference
+		});
+
+        params.where = "METER_NO = '" + document.getElementById("MeterNo").innerHTML + "'";
+        console.log();
+
+        // executes the query and calls getResults() once the promise is resolved
+        // promiseRejected() is called if the promise is rejected
+        qTask.execute(params)
+          .then(getResults)
+          .catch(promiseRejected);
+
+
+		// Called each time the promise is resolved
+		  function getResults(response) {
+
+			// Loop through each of the results and assign a symbol and PopupTemplate
+			// to each so they may be visualized on the map
+			var peakResults = arrayUtils.map(response.features, function(
+			  feature) {
+
+			  // Sets the symbol of each resulting feature
+                // Create a symbol for drawing the point
+                
+                var markerSymbol = {
+                    type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+                    url: "http://169.239.252.207/Images/water-meters.png",
+                    width: "30px",
+                    height: "30px"
+                };
+
+                console.log(feature.geometry);
+
+                
+
+                if (!projection.isSupported()) {
+                    alert("client-side projection is not supported");
+                    return;
+                }
+
+                console.log("Fan Love!!!!!");
+                console.log(outSpatialReference);
+                
+
+			  var pointGraphic = new Graphic({
+                  geometry: feature.geometry,
+				  symbol: markerSymbol
+				});
+
+              view.graphics.add(pointGraphic);
+
+              resultsLayer.add(pointGraphic);
+			  return feature;
+			});
+
+			resultsLayer.addMany(peakResults);
+
+            console.log(peakResults);
+
+            var opts = {
+                duration: 1000  // Duration of animation will be 5 seconds
+            };
+
+			// animate to the results after they are added to the map
+            view.goTo({
+                target: peakResults,
+                zoom: 18
+            }, opts);
+		  }
+
+		  // Called each time the promise is rejected
+		  function promiseRejected(error) {
+			console.error("Promise rejected: ", error.message);
+		  }
+
+      });
+    });
+</script>
+
+
+
+<h2>Details</h2>
+
+<div class="form-horizontal">
+    <h4>Water Meters</h4>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="col-md-7">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MeterNo)
+                    </dt>
+
+                    <dd>
+                        <div id="MeterNo">@Html.DisplayFor(model => model.MeterNo)</div>
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Meter_Status)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Meter_Status)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BillName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BillName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Brand)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Brand)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ward)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Ward)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Street)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Street)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Arrears)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Arrears)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Meter_Account_No)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Meter_Account_No)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PersonTable.Person_Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PersonTable.Person_Name)
+                    </dd>
+
+                </dl>
+            </div>
+
+            <div class="col-md-5">
+                <div id="myMap" style="position:relative; width:600px; height:400px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MeterID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

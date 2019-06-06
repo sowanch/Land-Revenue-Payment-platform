@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TangaDummy.WaterMeter>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Meter Number
+        </th>
+        <th>
+            Connection Status
+        </th>
+        <th>
+            Bill Name
+        </th>
+        <th>
+            Meter Brand
+        </th>
+        <th>
+            Ward
+        </th>
+        <th>
+            Street
+        </th>
+        <th>
+            Arrears
+        </th>
+        <th>
+            Account Number
+        </th>
+        <th>
+            Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MeterNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Meter_Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ward)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Arrears)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Meter_Account_No)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PersonTable.Person_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Make Payment", "Edit", new { id = item.MeterID }) |
+            @Html.ActionLink("View Details", "Details", new { id = item.MeterID })
+        </td>
+    </tr>
+}
+
+</table>

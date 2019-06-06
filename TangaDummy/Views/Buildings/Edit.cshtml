@@ -1,0 +1,113 @@
+﻿@model TangaDummy.Building
+
+@{
+    ViewBag.Title = "Make Payments";
+}
+
+<h2>Land Rates</h2> <h4>Pay for your Plot Online</h4>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4></h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.BuildingID)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LandRefNo, "Land Reference Number", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="col-md-7">
+                @Html.DisplayFor(model => model.LandRefNo)
+                @Html.HiddenFor(model => model.LandRefNo)
+            </div>
+            <div class="col-md-5">
+                <h4>Make Payment</h4>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PaymentStatus, "Payment Status", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="col-md-7">
+                <div class="checkbox">
+                    @Html.DisplayFor(model => model.PaymentStatus)
+                    @Html.HiddenFor(model => model.PaymentStatus)
+                </div>
+            </div>
+            <div>
+                <input type="number" class="form-control" name="payout" onkeypress="return isNumberKey(event)" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Arrears, "Payment Arrears", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="col-md-7">
+                @Html.DisplayFor(model => model.Arrears)
+                @Html.HiddenFor(model => model.Arrears)
+            </div>
+            <div class="col-md-5">
+                <input type="submit" value="Process Payment" class="btn btn-default" />
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PersonTable.Person_Name, "Owner", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.PersonTable.Person_Name)
+            @Html.HiddenFor(model => model.BuildingOwner)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BuildingType, "Building Type", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.BuildingType)
+            @Html.HiddenFor(model => model.BuildingType)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BuildingName, "Building Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.BuildingName)
+            @Html.HiddenFor(model => model.BuildingName)
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            
+        </div>
+    </div>
+    </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
+
+            function isNumberKey(evt) {
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode > 31 && (charCode < 48 || charCode > 57))
+                    return false;
+                return true;
+            }
+
+        </script>
+    }

@@ -1,0 +1,205 @@
+﻿@model TangaDummy.Building
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+<script src="https://js.arcgis.com/4.8/"></script>
+<script>
+    require([
+      "esri/Map",
+      "esri/views/SceneView",
+      "esri/views/MapView",
+      "esri/layers/GraphicsLayer",
+      "esri/layers/FeatureLayer",
+      "esri/tasks/QueryTask",
+      "esri/tasks/support/Query",
+
+      "esri/Graphic",
+      "esri/geometry/Point",
+
+      "esri/symbols/SimpleMarkerSymbol",
+	  "esri/symbols/SimpleFillSymbol",
+      "esri/widgets/Search",
+      "dojo/_base/array",
+      "dojo/domReady!"
+    ], function(Map, SceneView, MapView, GraphicsLayer, FeatureLayer, QueryTask, Query, Graphic, Point, SimpleMarkerSymbol, SimpleFillSymbol, Search, arrayUtils){
+
+        var markerSymbol;
+
+        var map = new Map({
+          basemap: "osm",
+          ground: "world-elevation"
+      });
+      var view = new MapView({
+        container: "myMap",  // Reference to the scene div created in step 5
+        map: map,  // Reference to the map object created before the scene
+        zoom: 4,  // Sets the zoom level based on level of detail (LOD)
+        center: [15, 65]  // Sets the center point of view in lon/lat
+      });
+
+	  // Create the FeatureLayer using the popupTemplate
+        var featureLayer = "https://services6.arcgis.com/HwQk19ysBarANM17/ArcGIS/rest/services/Tanga_buildings/FeatureServer/0";
+
+      // Create graphics layer and symbol to use for displaying the results of query
+      var resultsLayer = new GraphicsLayer();
+
+
+		/*****************************************************************
+       *  Point QueryTask to URL of feature service
+       *****************************************************************/
+		var qTask = new QueryTask({
+			url: featureLayer
+		});
+
+		/******************************************************************
+		* Set the query parameters to always return geometry and all fields.
+		* Returning geometry allows us to display results on the map/view
+		******************************************************************/
+		var params = new Query({
+			returnGeometry: true,
+			outFields: ["*"]
+		});
+
+		params.where = "OBJECTID = " + document.getElementById("LandRefNo").innerHTML;
+
+        // executes the query and calls getResults() once the promise is resolved
+        // promiseRejected() is called if the promise is rejected
+        qTask.execute(params)
+          .then(getResults)
+          .catch(promiseRejected);
+
+
+		// Called each time the promise is resolved
+		  function getResults(response) {
+
+			// Loop through each of the results and assign a symbol and PopupTemplate
+			// to each so they may be visualized on the map
+			var peakResults = arrayUtils.map(response.features, function(
+			  feature) {
+
+			  // Sets the symbol of each resulting feature
+			  fillSymbol = {
+				  type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+				  color: "red",
+				  outline: {  // autocasts as new SimpleLineSymbol()
+					color: [128, 128, 128, 0.5],
+					width: "0.5px"
+				  }
+				};
+
+			  var polygonGraphic = new Graphic({
+				  geometry: feature.geometry,
+				  symbol: fillSymbol
+				});
+
+			  view.graphics.add(polygonGraphic);
+
+			  resultsLayer.add(polygonGraphic);
+			  return feature;
+			});
+
+			resultsLayer.addMany(peakResults);
+
+			console.log(peakResults);
+
+			// animate to the results after they are added to the map
+			view.goTo(peakResults);
+		  }
+
+		  // Called each time the promise is rejected
+		  function promiseRejected(error) {
+			console.error("Promise rejected: ", error.message);
+		  }
+
+
+    });
+</script>
+
+<h2>Details</h2>
+
+<div class="form-horizontal">
+    <h4>Building</h4>
+    <hr />
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="col-md-7">
+                <dl class="dl-horizontal">
+                    <dt>
+                        LR number
+                    </dt>
+
+                    <dd>
+                        <div id="LandRefNo">@Html.DisplayFor(model => model.LandRefNo)</div>
+                    </dd>
+
+                    <dt>
+                        Building Type
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BuildingType)
+                    </dd>
+
+                    <dt>
+                        Building Name
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BuildingName)
+                    </dd>
+
+                    <dt>
+                        Building Address
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BuildingAddress)
+                    </dd>
+
+                    <dt>
+                        Building Floors
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BuildingFloors)
+                    </dd>
+
+                    <dt>
+                        Payment Status
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PaymentStatus)
+                    </dd>
+
+                    <dt>
+                        Arrears
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Arrears)
+                    </dd>
+
+                    <dt>
+                        Owner Name
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PersonTable.Person_Name)
+                    </dd>
+
+                </dl>
+            </div>
+
+            <div class="col-md-5">
+                <div id="myMap" style="position:relative; width:600px; height:400px;"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.BuildingID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

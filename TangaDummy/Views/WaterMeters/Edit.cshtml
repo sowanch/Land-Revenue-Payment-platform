@@ -1,0 +1,120 @@
+﻿@model TangaDummy.WaterMeter
+
+@{
+    ViewBag.Title = "Make Water Meter Payments";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>WaterMeter</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MeterID)
+
+    <div class="col-md-7">
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MeterNo, "Meter Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.MeterNo)
+                @Html.HiddenFor(model => model.MeterNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Meter_Status, "Meter Status", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Meter_Status)
+                @Html.HiddenFor(model => model.Meter_Status)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BillName, "Bill Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.BillName)
+                @Html.HiddenFor(model => model.BillName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Brand, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Brand)
+                @Html.HiddenFor(model => model.Brand)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MeterOwner, "Meter Owner", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.MeterOwner)
+                @Html.HiddenFor(model => model.MeterOwner)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ward, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Ward)
+                @Html.HiddenFor(model => model.Ward)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Street)
+                @Html.HiddenFor(model => model.Street)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Arrears, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Arrears)
+                @Html.HiddenFor(model => model.Arrears)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Meter_Account_No, "Account Number", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Meter_Account_No)
+                @Html.HiddenFor(model => model.Meter_Account_No)
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+
+
+    </div>
+
+    <div class="col-md-5">
+        <div>
+            <div class="col-md-10">
+                <h4>Make Payment</h4>
+            </div>
+        </div>
+        <div>
+            <input type="number" class="form-control" name="payout" onkeypress="return isNumberKey(event)" />
+        </div>
+        <br />
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Process Payment" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</div>
+}
+
